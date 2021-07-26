@@ -10,6 +10,11 @@ const routes = [
     method: 'GET',
     path: '/books',
     handler: Handler.getAllBooksHandler
+  },
+  {
+    method: 'GET',
+    path: '/books/{bookId}',
+    handler: Handler.getBookByIdHandler
   }
 ]
 

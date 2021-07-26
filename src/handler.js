@@ -56,4 +56,28 @@ const getAllBooksHandler = () => ({
   }
 })
 
-module.exports = { addBookHanlder, getAllBooksHandler }
+const getBookByIdHandler = (request, h) => {
+  const { bookId: id } = request.params
+
+  const book = bookShelf.filter(b => b.id === id)[0]
+
+  if (book) {
+    const response = h.response({
+      status: 'success',
+      data: {
+        book
+      }
+    })
+    response.code(200)
+    return response
+  }
+
+  const response = h.response({
+    status: 'fail',
+    message: 'Buku tidak ditemukan'
+  })
+  response.code(404)
+  return response
+}
+
+module.exports = { addBookHanlder, getAllBooksHandler, getBookByIdHandler }
