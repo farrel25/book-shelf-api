@@ -49,4 +49,11 @@ const addBookHanlder = (request, h) => {
   return response
 }
 
-module.exports = { addBookHanlder }
+const getAllBooksHandler = () => ({
+  status: 'success',
+  data: {
+    books: bookShelf
+  }
+})
+
+module.exports = { addBookHanlder, getAllBooksHandler }
