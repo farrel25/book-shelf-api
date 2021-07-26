@@ -49,10 +49,22 @@ const addBookHanlder = (request, h) => {
   return response
 }
 
+// const getAllBooksHandler = (request, h) => {
+// //   const books = bookShelf.map(bookShelf => {
+// //     return {
+// //       id: bookShelf.id,
+// //       name: bookShelf.name,
+// //       publisher: bookShelf.publisher
+// //     }
+// //   })
+//   const books = bookShelf.map(({ id, name, publisher }) => ({ id, name, publisher }))
+//   return books
+// }
+
 const getAllBooksHandler = () => ({
   status: 'success',
   data: {
-    books: bookShelf
+    books: bookShelf.map(({ id, name, publisher }) => ({ id, name, publisher }))
   }
 })
 
