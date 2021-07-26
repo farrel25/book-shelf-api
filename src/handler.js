@@ -49,41 +49,29 @@ const addBookHanlder = (request, h) => {
   return response
 }
 
-// const getAllBooksHandler = (request, h) => {
-// //   const books = bookShelf.map(bookShelf => {
-// //     return {
-// //       id: bookShelf.id,
-// //       name: bookShelf.name,
-// //       publisher: bookShelf.publisher
-// //     }
-// //   })
-//   const books = bookShelf.map(({ id, name, publisher }) => ({ id, name, publisher }))
-//   return books
-// }
-
 const getAllBooksHandler = (request, h) => {
   let result = bookShelf
+  const { name, reading, finished } = request.query
 
-  if (request.query.name) {
-    const { name } = request.query
+  if (name) {
     result = bookShelf.filter(book => (book.name.toLowerCase()).includes(name.toLowerCase()))
-  } else if (request.query.reading) {
-    const { reading } = request.query
-    if (reading === '1') {
-      result = bookShelf.filter(book => book.reading === true)
-    } else {
-      result = bookShelf.filter(book => book.reading === false)
-    }
-  } else if (request.query.finished) {
-    const { finished } = request.query
-    if (finished === '1') {
-      result = bookShelf.filter(book => book.finished === true)
-    } else {
-      result = bookShelf.filter(book => book.finished === false)
-    }
+  } else if (reading) {
+    const isReading = reading === '1'
+    result = bookShelf.filter(book => book.reading === isReading)
+  } else if (finished) {
+    const isFinished = finished === '1'
+    result = bookShelf.filter(book => book.finished === isFinished)
   }
 
-  books = result.map(({ id, name, publisher }) => ({ id, name, publisher }))
+  // const books = bookShelf.map(bookShelf => {
+  //   return {
+  //     id: bookShelf.id,
+  //     name: bookShelf.name,
+  //     publisher: bookShelf.publisher
+  //   }
+  // })
+
+  const books = result.map(({ id, name, publisher }) => ({ id, name, publisher }))
 
   const response = h.response({
     status: 'success',
