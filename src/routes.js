@@ -4,7 +4,7 @@ const routes = [
   {
     method: 'POST',
     path: '/books',
-    handler: Handler.addBookHanlder()
+    handler: Handler.addBookHanlder
   }
 ]
 
