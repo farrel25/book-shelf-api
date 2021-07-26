@@ -64,12 +64,22 @@ const addBookHanlder = (request, h) => {
 const getAllBooksHandler = (request, h) => {
   let result = bookShelf
 
-  if (request.query.reading) {
+  if (request.query.name) {
+    const { name } = request.query
+    result = bookShelf.filter(book => (book.name.toLowerCase()).includes(name.toLowerCase()))
+  } else if (request.query.reading) {
     const { reading } = request.query
     if (reading === '1') {
       result = bookShelf.filter(book => book.reading === true)
     } else {
       result = bookShelf.filter(book => book.reading === false)
+    }
+  } else if (request.query.finished) {
+    const { finished } = request.query
+    if (finished === '1') {
+      result = bookShelf.filter(book => book.finished === true)
+    } else {
+      result = bookShelf.filter(book => book.finished === false)
     }
   }
 
